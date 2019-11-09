@@ -10,7 +10,7 @@ class App extends Component {
     super(props);
 
     // Setting initial state; only time direct state assignment is allowed.
-    this.state = { lat: null };
+    this.state = { lat: null, errorMessage: "" };
 
     // HOF to find current position.
     window.navigator.geolocation.getCurrentPosition(
@@ -20,12 +20,23 @@ class App extends Component {
         this.setState({ lat: positionDetails.coords.latitude });
       },
       // Callback to catch error, such as user location not found.
-      err => console.log(err)
+      err => {
+        this.setState({ errorMessage: err.message });
+      }
     );
   }
 
   render() {
-    return <div>Lattitude: {this.state.lat}</div>;
+    // Received errorMessage (no latitude)
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+    // Received latitude (no errorMessage)
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div>Latitude: {this.state.lat}</div>;
+    }
+    // Loading (catch-all; no latitude && no errorMessage)
+    return <div>Loading</div>;
   }
 }
 
