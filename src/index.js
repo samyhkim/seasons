@@ -3,15 +3,11 @@ import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
 
 class App extends Component {
-  // Initialize constructor(); old method of initializing state.
-  // constructor() is the first function to get called when a component loads, even before render().
-  // constructor() is the optimal place to call getCurrentPosition(), instead of double fetching user location from render().
-  constructor(props) {
-    super(props);
-
-    // Setting initial state; only time direct state assignment is allowed.
-    this.state = { lat: null, errorMessage: "" };
-  }
+  // Setting initial state; only time direct state assignment is allowed.
+  state = {
+    lat: null,
+    errorMessage: ""
+  };
 
   componentDidMount() {
     // HOF to find current position.
@@ -35,7 +31,7 @@ class App extends Component {
     }
     // Received latitude (no errorMessage)
     if (!this.state.errorMessage && this.state.lat) {
-      return <div>Latitude: {this.state.lat}</div>;
+      return <SeasonDisplay lat={this.state.lat}></SeasonDisplay>;
     }
     // Loading (catch-all; no latitude && no errorMessage)
     return <div>Loading!</div>;
