@@ -11,7 +11,9 @@ class App extends Component {
 
     // Setting initial state; only time direct state assignment is allowed.
     this.state = { lat: null, errorMessage: "" };
+  }
 
+  componentDidMount() {
     // HOF to find current position.
     window.navigator.geolocation.getCurrentPosition(
       // Callback to update state.
@@ -36,7 +38,7 @@ class App extends Component {
       return <div>Latitude: {this.state.lat}</div>;
     }
     // Loading (catch-all; no latitude && no errorMessage)
-    return <div>Loading</div>;
+    return <div>Loading!</div>;
   }
 }
 
