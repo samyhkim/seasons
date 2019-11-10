@@ -25,7 +25,8 @@ class App extends Component {
     );
   }
 
-  render() {
+  // Render helper function allows us to remove conditional logic from render()
+  renderContent() {
     // Received errorMessage (no latitude)
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
@@ -36,6 +37,11 @@ class App extends Component {
     }
     // Loading (catch-all; no latitude && no errorMessage)
     return <Spinner message={"Please accept location request."} />;
+  }
+
+  render() {
+    // Removing conditional logic allows us to easily wrap our conditionally rendered content, if needed
+    return <div className="border red">{this.renderContent()}</div>;
   }
 }
 

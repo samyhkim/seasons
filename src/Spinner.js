@@ -8,6 +8,7 @@ const Spinner = props => {
   );
 };
 
+// Default props allow us to have a default configuration for our functional components
 Spinner.defaultProps = {
   message: "Loading..."
 };
